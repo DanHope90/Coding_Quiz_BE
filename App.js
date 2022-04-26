@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const questionsRoutes = require("./routers/questionsRouter")
+const questionsRoutes = require("./src/routers/questionsRouter")
 
-const APP_PORT = 4000;
+app.use(express.json());
 
 //create environment variable for password ? Do we use .ENV file or nodemon.json? 
-mongoose.connect("mongodb+srv://Quiz_API_Mock:Lucg65HkqmocBe6O@cluster0.08qp2.mongodb.net/Coding_Quiz_Mock?retryWrites=true&w=majority",);
+mongoose.connect("mongodb+srv://Quiz_API_Mock:Lucg65HkqmocBe6O@cluster0.08qp2.mongodb.net/Coding_Quiz_Mock?retryWrites=true&w=majority");
 
 app.use("/questions", questionsRoutes);
 
@@ -15,6 +15,7 @@ app.use("/questions", questionsRoutes);
 // });
 
 //maybe think of creating an environment variable for port connection for deployment
+const APP_PORT = 4000;
 app.listen(APP_PORT, () => {
     console.log(`Our App is now listening on http://localhost:${APP_PORT}`);
 });
