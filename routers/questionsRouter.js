@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
     res.status(200).json();
 });
  
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
     const questions = new questionModel({
         _id: mongoose.Types.ObjectId(),
         question: req.body.question,
