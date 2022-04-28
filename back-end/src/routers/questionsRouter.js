@@ -1,8 +1,6 @@
  const express = require('express');
 const router = express.Router();
 const {getQuestion, postQuestion} = require("../controllers/questionController");
-const questionModel = require("../models/questionsModel");
-const mongoose = require("mongoose");
 
 router.get("/", getQuestion);
  
