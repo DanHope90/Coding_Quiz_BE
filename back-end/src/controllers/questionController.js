@@ -13,13 +13,10 @@
         res.status(400)
         throw new Error("Please add questions!")
      }
-
-     const question = await Question.create({
-        
-      question: req.body.question
+      const question = await Question.create({
+        question: req.body
      })
-
-        res.status(200).json(question);
+         res.status(200).json(question);
  });
 
  module.exports = {getQuestion, postQuestion};
