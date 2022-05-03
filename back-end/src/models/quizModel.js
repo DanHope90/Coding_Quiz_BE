@@ -9,7 +9,10 @@ const quizSchema = new mongoose.Schema({
     {answer_c: String, isCorrect: Boolean},
     {answer_d: String, isCorrect: Boolean},
   ],
-  timestamps: true,
+},
+
+{
+  timestamps: true
 });
 
 module.exports = mongoose.model('Quiz', quizSchema);
