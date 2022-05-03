@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const questionsSchema = new mongoose.Schema({
-
+const quizSchema = new mongoose.Schema({
+  
+    quiz: String,
       question: String,
        answers: {
         answer_a: String,
@@ -20,4 +21,4 @@ const questionsSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-module.exports = mongoose.model('Question', questionsSchema);
+module.exports = mongoose.model('Quiz', quizSchema);
