@@ -4,7 +4,7 @@ const {getQuizQ, getQuizQId, postQuizQ } = require("../controllers/quizControlle
 
 router.get("/", getQuizQ);
 
-router.get("/:id");
+router.get("/:id", getQuizQId);
  
 router.post("/", postQuizQ);
 

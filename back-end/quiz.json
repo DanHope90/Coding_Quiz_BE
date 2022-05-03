@@ -1,0 +1,10 @@
+{
+  "quiz": "Dummy Quiz",
+  "question": "Is this a question?",
+  "answers": [
+    {"answer_a": "String", "isCorrect": "Boolean"},
+    {"answer_b": "String", "isCorrect": "Boolean"},
+    {"answer_c": "String", "isCorrect": "Boolean"},
+    {"answer_d": "String", "isCorrect": "Boolean"}
+  ]
+  }

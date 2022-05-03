@@ -9,9 +9,9 @@
  });
 
  // Get quiz questions by id
- // Will want to just get the question and answer 
-const getQuizQId = async (req, res, id ) => {
-   const quiz = await Quiz.findById(id).exec();
+const getQuizQId = asyncHandler (async (req, res) => {
+   const {quizId} = req.body._id
+   const quiz = await Quiz.findById(quizId).select()
 
    if (quiz) {
       res.status(200).json(quiz)
@@ -24,12 +24,13 @@ const getQuizQId = async (req, res, id ) => {
 
 // POST /api/quiz 
  const postQuizQ = asyncHandler (async (req, res) => {
-    const quizQuestions = req.body;
-     if(!quizQuestions) {
+     if(!req.body.quiz) {
         res.status(400)
         throw new Error("Please add questions!")
      }
-      const quiz = await Quiz.create({quizQuestions})
+      const quiz = await Quiz.create({
+        quiz: req.body.quiz
+     })
          res.status(200).json(quiz);
  });
 
