@@ -5,7 +5,7 @@
  // GET /api/quizzes
 
  const getQuiz = asyncHandler (async (req, res) =>  {
-    const quiz = await Quiz.find()
+    const quiz = await Quiz.find().populate("questions")
     res.status(200).json(quiz);
  });
 
@@ -14,7 +14,7 @@
 
 const getQuizId = async (req, res) => {
 
-  await Quiz.findById(req.params.id).then(quiz => {
+  await Quiz.findById(req.params.id).populate("questions").then(quiz => {
       if(!quiz){
          res.status(404)
          throw new Error("Quiz not found")

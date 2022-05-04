@@ -4,7 +4,11 @@ const quizSchema = new mongoose.Schema({
 
   quizName: String,
   description: String,
-  questions: []
+  questions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Question"
+
+  }]
 });
 
 
