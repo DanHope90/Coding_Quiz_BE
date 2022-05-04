@@ -3,8 +3,9 @@ const colors = require("colors");
 const dotenv = require("dotenv").config();
 const {errorHandler} = require("./src/middleware/errorMiddleware");
 const connectDB = require("./src/config/db");
-const questionsRoutes = require("./src/routers/quizRouter");
+const quizRoutes = require("./src/routers/quizRouter");
 const userRoutes = require("./src/routers/userRouter");
+const questionRouter = require("./src/routers/questionRouter");
 const port = process.env.PORT || 4000;
 
 connectDB()
@@ -14,13 +15,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use("/api/quizzes", questionsRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/quizzes", quizRoutes);
+app.use("/api/question", questionRouter);
 
 app.use(errorHandler);
 
-//maybe think of creating an environment variable for port connection for deployment
-// const APP_PORT = 4000;
 app.listen(port, () => {
     console.log(`Our App is now listening on http://localhost:${port}`);
 });
