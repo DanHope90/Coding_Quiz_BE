@@ -7,6 +7,7 @@ const quizRoutes = require("./src/routers/quizRouter");
 const userRoutes = require("./src/routers/userRouter");
 const questionRouter = require("./src/routers/questionRouter");
 const cors = require("cors");
+const { db } = require("./src/models/userModel");
 const port = process.env.PORT || 4000;
 
 connectDB()

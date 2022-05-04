@@ -1,5 +1,6 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-
 const User = require("../models/userModel");
 
 // registers new user 
@@ -10,6 +11,7 @@ const registerUser = asyncHandler (async (req, res) => {
     if(!userName || !email || !password) {
         throw new Error("Please fill in all fields")
     }
+
     // check user exists
     const userExists = await User.findOne({email})
 
@@ -18,18 +20,24 @@ const registerUser = asyncHandler (async (req, res) => {
         throw new Error("User already exists")
     }
 
+    // Hash password 
+
+    const salt = await bcrypt.genSalt(10) 
+    const hashedPassword = await bcrypt.hash(password, salt)
+
     // creates a new user 
     const createUser = await User.create({
         userName,
         email,
-        password,
+        password: hashedPassword
     })
 
     if(createUser) { 
-      res.status(200).json({
+      res.status(201).json({
+          _id: createUser.id,
           userName: createUser.userName,
           email: createUser.email,
-          password: createUser.password,
+          token: generateToken(user._id)
       })
     } else {
         res.status(400)
@@ -40,21 +48,30 @@ const registerUser = asyncHandler (async (req, res) => {
 // POST /api/users/login - authorise user 
 const loginUser = asyncHandler (async (req, res) => {
   const { email, password } = req.body
+
   // checks user credentials
-  const checkEmail = await User.find({email, password})
-  const checkPassword = await User.findOne({password})
+  const user = await User.findOne({email})
 
-  if(!checkEmail || !checkPassword) {
-    res.status(401)
-      throw new Error("Incorrect credentials")
-  } else {
+  if(user && (await bcrypt.compare(password, user.password))) {
+   
     res.status(200).json({
-        userName: checkEmail.userName,
-        email: checkEmail.email,
-        password: checkEmail.password,
-    })
+      _id: user.id,
+      userName: user.userName,
+      email: user.email,
+      token: generateToken(user._id)
+    }) 
+  } else {
+    res.status(401)
+    throw new Error("Invalid credentials")
   }
-
 });
+
+// Generate JWT
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  })
+}
 
 module.exports = {registerUser, loginUser}
