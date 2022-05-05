@@ -29,7 +29,7 @@ const registerUser = asyncHandler (async (req, res) => {
     const createUser = await User.create({
         userName,
         email,
-        password: hashedPassword
+        password : hashedPassword
     })
 
     if(createUser) { 
@@ -45,7 +45,7 @@ const registerUser = asyncHandler (async (req, res) => {
     }
 });
 
-// POST /api/users/login - authorise user 
+// POST /api/user/login - authorise user 
 const loginUser = asyncHandler (async (req, res) => {
   const { email, password } = req.body
 
@@ -56,15 +56,23 @@ const loginUser = asyncHandler (async (req, res) => {
    
     res.status(200).json({
       _id: user.id,
-      userName: user.userName,
+      userName: user.userName, 
       email: user.email,
       token: generateToken(user._id)
     }) 
   } else {
-    res.status(401)
+    res.status(400)
     throw new Error("Invalid credentials")
   }
 });
+
+// Get user data 
+// ET API/users/me
+//private
+
+const getMe = asyncHandler (async (req, res) => {
+  res.json({ message: "user data display" })
+})
 
 // Generate JWT
 
@@ -74,4 +82,4 @@ const generateToken = (id) => {
   })
 }
 
-module.exports = {registerUser, loginUser}
+module.exports = {registerUser, loginUser, getMe}
