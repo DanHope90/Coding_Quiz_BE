@@ -19,7 +19,15 @@ const usersSchema = new mongoose.Schema(
             args: [6],
             required: [true, 'Password must be at least 6 characters long']
         }
-    }
+    },
+    savedQuizzes: [{
+        _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            reg: "Quiz"
+        },
+        score: Number,
+    }]
+
   },
 {
     timestamps: true,

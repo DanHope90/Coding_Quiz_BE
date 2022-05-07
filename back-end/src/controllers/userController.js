@@ -66,8 +66,41 @@ const loginUser = asyncHandler (async (req, res) => {
   }
 });
 
+// saves quiz and score to the user
+// POST /api/user/savedquizzes
+// public
+
+// check if user // check 
+
+const saveAQuiz = asyncHandler (async (req, res) => {
+
+  const {userId, quizId, score} = req.body;
+  
+  const user = await User.findById(userId)
+
+  if(!user) {
+    res.status(400)
+    throw new Error("Account not created")
+  }
+
+  if(user) {
+   User.updateOne(
+    {_id: userId },
+    {$addToSet: {savedQuizzes: [{ _id: quizId, score }]}},
+    function(err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+    )
+} 
+})
+
+
 // Get user data 
-// ET API/users/me
+// GET API/users/me
 //private
 
 const getMe = asyncHandler (async (req, res) => {
@@ -82,4 +115,5 @@ const generateToken = (id) => {
   })
 }
 
-module.exports = {registerUser, loginUser, getMe}
+
+module.exports = {registerUser, loginUser, saveAQuiz, getMe}
