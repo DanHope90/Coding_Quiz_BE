@@ -75,13 +75,19 @@ const loginUser = asyncHandler (async (req, res) => {
 const saveAQuiz = asyncHandler (async (req, res) => {
 
   const {userId, quizId, score} = req.body;
+
+  if(!userId || !quizId || !score) {
+    throw new Error("Account not found")
+}
   
   const user = await User.findById(userId)
 
   if(!user) {
     res.status(400)
-    throw new Error("Account not created")
+    throw new Error("Account not found")
   }
+
+// saves quiz to the user by id 
 
   if(user) {
    User.updateOne(
@@ -96,6 +102,37 @@ const saveAQuiz = asyncHandler (async (req, res) => {
     }
     )
 } 
+})
+
+// Updates quiz score to user 
+// PUT /api/user/updatequizscore
+
+const updateQuizScore = asyncHandler (async (req, res) => {
+  const {userId, quizId, score} = req.body;
+
+  if(!userId || !quizId || !score) {
+    throw new Error("Account not found")
+}
+  
+  const user = await User.findById(userId)
+
+  if(!user) {
+    res.status(400)
+    throw new Error("Account not found")
+  }
+
+  if(user) {
+    User.findOneAndUpdate(
+      {_id: userId },
+      {$set: {savedQuizzes: [{ _id: quizId, score }]}},
+      function(err, result) {
+        if(err) { 
+          res.send(err);
+        } else {
+          res.send(result);
+        }
+      })
+  }
 })
 
 
@@ -116,4 +153,4 @@ const generateToken = (id) => {
 }
 
 
-module.exports = {registerUser, loginUser, saveAQuiz, getMe}
+module.exports = {registerUser, loginUser, saveAQuiz, updateQuizScore, getMe}
