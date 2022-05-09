@@ -135,6 +135,33 @@ const updateQuizScore = asyncHandler (async (req, res) => {
   }
 })
 
+// Get all users 
+// Get /api/user
+
+const getUsers = asyncHandler (async (req, res) => {
+  const user = await User.find()
+  res.status(200).json(user)
+
+})
+
+// Get user scores 
+// GET /api/user/scores
+
+const getScores = asyncHandler (async (req, res) => {
+  const {userId, score} = req.body;
+ User.find(
+   {"savedQuizzes.score": {$gt: 3}},
+   function (err, result ){
+    if(err) {
+      res.send(err)
+    } else {
+      res.send(result)
+    }
+   }
+    
+ )
+});
+
 
 // Get user data 
 // GET API/users/me
@@ -153,4 +180,4 @@ const generateToken = (id) => {
 }
 
 
-module.exports = {registerUser, loginUser, saveAQuiz, updateQuizScore, getMe}
+module.exports = {registerUser, loginUser, saveAQuiz, updateQuizScore, getUsers, getScores, getMe}

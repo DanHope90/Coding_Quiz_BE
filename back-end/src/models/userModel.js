@@ -23,7 +23,7 @@ const usersSchema = new mongoose.Schema(
     savedQuizzes: [{
         _id: {
             type: mongoose.Schema.Types.ObjectId,
-            reg: "Quiz"
+            ref: "Quiz"
         },
         score: Number,
     }]
