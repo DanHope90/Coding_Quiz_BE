@@ -144,6 +144,22 @@ const getUsers = asyncHandler (async (req, res) => {
 
 })
 
+//Get user by id 
+// GET /api/user/:id
+
+const getUserId = asyncHandler (async (req, res) => {
+
+  await User.findById(req.params.id)
+  .then(user => {
+    if(!user) {
+      res.status(404)
+      throw new Error("User not found")
+    } else {
+      res.status(200).json(user)
+    }
+  })
+})
+
 // Get user scores 
 // GET /api/user/scores
 
@@ -180,4 +196,4 @@ const generateToken = (id) => {
 }
 
 
-module.exports = {registerUser, loginUser, saveAQuiz, updateQuizScore, getUsers, getScores, getMe}
+module.exports = {registerUser, loginUser, saveAQuiz, updateQuizScore, getUsers, getUserId, getScores, getMe}
