@@ -1,6 +1,7 @@
 const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv").config();
+const path = require('path');
 const {errorHandler} = require("./src/middleware/errorMiddleware");
 const connectDB = require("./src/config/db");
 const quizRoutes = require("./src/routers/quizRouter");
@@ -24,6 +25,12 @@ app.use("/api/quizzes", quizRoutes);
 app.use("/api/question", questionRouter);
 
 app.use(errorHandler);
+
+// if (process.env === "test") {
+//     require(dotenv).config({
+//         path: path.join(__dirname, envFile)
+//     });
+// };
 
 app.listen(port, () => {
     console.log(`Our App is now listening on http://localhost:${port}`);
