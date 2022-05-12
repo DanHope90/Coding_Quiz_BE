@@ -30,3 +30,7 @@ nodemon
 
 eslint 
 prettier
+
+## Author ##
+
+Dan Hope
