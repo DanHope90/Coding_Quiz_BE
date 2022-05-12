@@ -1,4 +1,4 @@
-### Dev Quiz - Manchester Codes Final Project - Dan Hope / Chris Peakin - Oct21 Cohort ###
+###### Dev Quiz - Manchester Codes Final Project - Dan Hope / Chris Peakin - Oct21 Cohort ######
 
 ## Introduction ##
 Dev Quiz is a simple web application created to test basic coding knowledge
