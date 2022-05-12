@@ -26,12 +26,6 @@ app.use("/api/question", questionRouter);
 
 app.use(errorHandler);
 
-// if (process.env === "test") {
-//     require(dotenv).config({
-//         path: path.join(__dirname, envFile)
-//     });
-// };
-
 app.listen(port, () => {
     console.log(`Our App is now listening on http://localhost:${port}`);
 });

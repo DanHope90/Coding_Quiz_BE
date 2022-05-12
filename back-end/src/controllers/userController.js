@@ -3,9 +3,9 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 
-// registers new user 
-// POST /api/users - finds if user exists
-const registerUser = asyncHandler (async (req, res) => {
+    // registers new user 
+    // POST /api/users - finds if user exists
+    const registerUser = asyncHandler (async (req, res) => {
     const { userName, email, password } = req.body
 
     if(!userName || !email || !password) {
@@ -46,7 +46,7 @@ const registerUser = asyncHandler (async (req, res) => {
 });
 
 // POST /api/user/login - authorise user 
-const loginUser = asyncHandler (async (req, res) => {
+  const loginUser = asyncHandler (async (req, res) => {
   const { email, password } = req.body
 
   // checks user credentials
@@ -178,7 +178,6 @@ const getScores = asyncHandler (async (req, res) => {
     
  )
 });
-
 
 // Get user data 
 // GET API/users/me
